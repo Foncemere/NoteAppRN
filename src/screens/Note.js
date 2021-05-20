@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { TextInput, StyleSheet, View, Button } from "react-native";
+import { TextInput, StyleSheet, View, Button, Text } from "react-native";
 import * as NoteActions from "../actions/NoteActions";
 import { useDispatch, useSelector } from "react-redux";
 
-//navigation is is for Navigator, it is needed
+//navigation is for Navigator, it is needed
 //route is the details of navigation
 function AddNotes({ navigation, route }) {
   // dispatch hook for function
@@ -42,8 +42,7 @@ function AddNotes({ navigation, route }) {
 
   return (
     <>
-      {/* button for back */}
-      <Button
+      {/* <Button
         title="BACK"
         icon="close"
         size={25}
@@ -51,9 +50,17 @@ function AddNotes({ navigation, route }) {
         // navigates to Home screen
         onPress={() => navigation("Home")}
         style={styles.iconButton}
-      />
+      /> */}
 
       <View style={styles.container}>
+        <Text
+          style={{
+            paddingTop: 3,
+          }}
+        >
+          Title:
+        </Text>
+
         <TextInput
           label="Add Note Title here"
           value={title}
@@ -61,6 +68,14 @@ function AddNotes({ navigation, route }) {
           onChangeText={settitle}
           style={styles.title}
         />
+        <Text
+          style={{
+            paddingTop: 3,
+          }}
+        >
+          Description:
+        </Text>
+
         <TextInput
           label="Add Note Description"
           value={description}
@@ -74,7 +89,7 @@ function AddNotes({ navigation, route }) {
         />
         <Button
           title="Save"
-          style={styles.fab}
+          style={styles.iconButton}
           small
           icon="check"
           disabled={title == "" ? true : false}
@@ -82,7 +97,7 @@ function AddNotes({ navigation, route }) {
         />
         <Button
           title="Delete"
-          style={styles.fab}
+          style={styles.iconButton}
           small
           icon="check"
           // deleteNote needs a parameter of the id
@@ -102,9 +117,6 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     backgroundColor: "#219653",
-    position: "absolute",
-    right: 0,
-    top: 40,
     margin: 10,
   },
   titleContainer: {
@@ -119,13 +131,6 @@ const styles = StyleSheet.create({
   text: {
     height: 300,
     fontSize: 16,
-  },
-  fab: {
-    position: "absolute",
-    margin: 20,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#219653",
   },
 });
 

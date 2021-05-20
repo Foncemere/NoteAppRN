@@ -17,6 +17,7 @@ export default function App() {
           data={notes}
           renderItem={({ item }) => (
             <TouchableOpacity
+              style={styles.noteGroup}
               //will navigate to a the Note page, also passing in the parameters of all items.
               // param will be used on second argument (navigation , *route ) in Note.js
               onPress={() => navigation.navigate("Note", { ...item })}
@@ -33,7 +34,11 @@ export default function App() {
         <Text> There are no notes </Text>
       )}
       {/* the button below does not receive a parameter, hence route.param will be undefined */}
-      <Button title="Add" onPress={() => navigation.navigate("Note")} />
+      <Button
+        title="Add"
+        style={styles.button}
+        onPress={() => navigation.navigate("Note")}
+      />
     </View>
   );
 }
@@ -41,9 +46,30 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "rgb(217, 219, 222)",
     alignItems: "center",
     justifyContent: "center",
   },
-  title: {},
+  noteGroup: {
+    marginTop: 20,
+    backgroundColor: "#fff",
+    width: 400,
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#d9dbde",
+    borderStyle: "solid",
+    alignSelf: "stretch", //--- Will research more on later
+  },
+  title: {
+    fontSize: 20,
+    padding: 10,
+    color: "black",
+  },
+  description: {
+    padding: 5,
+  },
+  button: {
+    margin: 3,
+    padding: 30,
+  },
 });

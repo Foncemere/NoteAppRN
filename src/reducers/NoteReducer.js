@@ -1,5 +1,5 @@
 const INITIAL_STATE = [
-  { id: 0, itemGiven: { title: "tite", description: "hello world" } },
+  { id: 0, itemGiven: { title: "title", description: "hello world" } },
 ];
 
 const NoteReducer = (state = INITIAL_STATE, action) => {
