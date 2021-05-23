@@ -5,12 +5,10 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import NoteReducer from "./src/reducers/NoteReducer";
 import AddNotes from "./src/screens/Note";
+import store from "./src/store";
 
 const Stack = createStackNavigator();
-const store = createStore(NoteReducer);
 
 const main = () => {
   return (

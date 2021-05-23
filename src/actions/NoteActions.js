@@ -6,7 +6,7 @@ export const addNote = (item, Noteid) => ({
 
 export const deleteThisNote = (noteID) => ({
   type: "DELETE_NOTE",
-  noteID,
+  id: noteID,
 });
 
 export const editNote = (noteID, item) => ({

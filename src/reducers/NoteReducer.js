@@ -1,5 +1,3 @@
-import { addNoteFirebase, getNotesFirebase } from "../API/noteAPI";
-
 const INITIAL_STATE = [];
 const NoteReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -10,21 +8,21 @@ const NoteReducer = (state = INITIAL_STATE, action) => {
       return [...state, { id: action.id, itemGiven: action.item }];
 
     case "DELETE_NOTE":
-      return state.filter((e) => e.id !== action.id);
+      return state.filter((stateNoteItem) => stateNoteItem.id !== action.id);
     //they can be treated like a function, doesnt have to be a 1 liner return function, like EDIT_NOTE
     case "EDIT_NOTE": {
-      const x = state.map((e) => {
+      const editedNoteList = state.map((NoteItem) => {
         //will map out the entire state
         //if action id matches, it gives the new items and same id.
-        if (e.id === action.id) {
+        if (NoteItem.id === action.id) {
           return { id: action.id, itemGiven: action.item };
         } else {
           // else it doesnt do anything to it.
-          return e;
+          return NoteItem;
         }
       });
       // return new array
-      return x;
+      return editedNoteList;
     }
     case "RENDER_NOTES": {
       return action.item;

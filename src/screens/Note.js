@@ -22,17 +22,19 @@ function AddNotes({ navigation, route }) {
 
   //new dispathes
   const addNewNote = (note) => {
-    addNoteFirebase(note);
-    dispatch(NoteActions.addNote(note, note.id));
+    // Using method 1, passing callback function that will be used
+    addNoteFirebase(note, (refID) => {
+      dispatch(NoteActions.addNote(note, refID));
+    });
   };
   const editNote = (id, note) => {
+    //Using method 2, accessing store directly
     editNoteFirebase(id, note);
-    dispatch(NoteActions.editNote(id, note));
   };
 
   const deleteNote = (id) => {
+    //Using method 2, accessing store directly
     deleteNoteFirebase(id);
-    dispatch(NoteActions.deleteThisNote(id));
     navigation.goBack();
   };
 

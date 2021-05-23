@@ -1,9 +1,10 @@
 import "@react-native-firebase/app";
 import firestore, { firebase } from "@react-native-firebase/firestore";
 import * as NoteActions from "../actions/NoteActions";
-import { useDispatch, useSelector } from "react-redux";
+import store from "../store";
 
-export function addNoteFirebase(item) {
+//asyn needs .then
+export function addNoteFirebase(item, onAddSuccess) {
   console.log("Item Received", item);
   firestore()
     .collection("notes")
@@ -12,6 +13,8 @@ export function addNoteFirebase(item) {
       description: item.description,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
+    //always accept function, this is the callback
+    .then((docRef) => onAddSuccess(docRef.id))
     .catch((error) => console.log(error));
 }
 
@@ -36,7 +39,9 @@ export async function deleteNoteFirebase(id) {
     .doc(id)
     .delete()
     .then(() => {
-      console.log("Note deleted!");
+      //using direct method from the store directly, not using react redux useDispatch
+
+      store.dispatch(NoteActions.deleteThisNote(id));
     })
     .catch((e) => {
       console.log(e);
@@ -53,5 +58,7 @@ export async function editNoteFirebase(id, item) {
       description: item.description,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     })
+    //using direct method from the store directly, not using react redux useDispatch
+    .then(() => store.dispatch(NoteActions.editNote(id, item)))
     .catch((e) => console.log(e));
 }
