@@ -1,18 +1,21 @@
-let noteID = 0;
-
-export const addNote = (item) => ({
+export const addNote = (item, Noteid) => ({
   type: "ADD_NOTE",
-  id: ++noteID,
+  id: Noteid,
   item,
 });
 
-export const deleteNote = (noteID) => ({
+export const deleteThisNote = (noteID) => ({
   type: "DELETE_NOTE",
-  id: noteID,
+  noteID,
 });
 
 export const editNote = (noteID, item) => ({
   type: "EDIT_NOTE",
   id: noteID,
+  item,
+});
+
+export const renderNotes = (item) => ({
+  type: "RENDER_NOTES",
   item,
 });

@@ -1,5 +1,7 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
 
-export const resolver = {
-  sourceExts: ["jsx", "js", "ts", "tsx"], //add here
+module.exports = {
+  resolver: {
+    sourceExts: ["jsx", "js", "ts", "tsx"], //add here
+  },
 };

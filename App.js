@@ -1,14 +1,28 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addNoteFirebase, getNotesFirebase } from "./src/API/noteAPI";
+import * as NoteActions from "./src/actions/NoteActions";
 
 export default function App() {
-  // must be inside of the context/store Provider
-  //must use hooks, useSelector extracts data from store
   const notes = useSelector((store) => store);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const addNoteFromFirebaseDispatch = (note) => {
+    dispatch(NoteActions.renderNotes(note));
+  };
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    console.log("the component mounted");
+
+    //since getNotesFirebase is async, need a promise, which is .then, which will fulfill the each
+    getNotesFirebase().then((noteItems) => {
+      addNoteFromFirebaseDispatch(noteItems);
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -28,7 +42,7 @@ export default function App() {
               </Text>
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id}
         />
       ) : (
         <Text> There are no notes </Text>

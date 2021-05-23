@@ -1,7 +1,6 @@
-const INITIAL_STATE = [
-  { id: 0, itemGiven: { title: "title", description: "hello world" } },
-];
+import { addNoteFirebase, getNotesFirebase } from "../API/noteAPI";
 
+const INITIAL_STATE = [];
 const NoteReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "ADD_NOTE":
@@ -26,6 +25,9 @@ const NoteReducer = (state = INITIAL_STATE, action) => {
       });
       // return new array
       return x;
+    }
+    case "RENDER_NOTES": {
+      return action.item;
     }
     default:
       return state;

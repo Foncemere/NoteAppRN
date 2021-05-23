@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { TextInput, StyleSheet, View, Button, Text } from "react-native";
 import * as NoteActions from "../actions/NoteActions";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  addNoteFirebase,
+  deleteNoteFirebase,
+  editNoteFirebase,
+} from "../API/noteAPI";
 
 //navigation is for Navigator, it is needed
 //route is the details of navigation
@@ -17,14 +22,17 @@ function AddNotes({ navigation, route }) {
 
   //new dispathes
   const addNewNote = (note) => {
-    dispatch(NoteActions.addNote(note));
+    addNoteFirebase(note);
+    dispatch(NoteActions.addNote(note, note.id));
   };
   const editNote = (id, note) => {
+    editNoteFirebase(id, note);
     dispatch(NoteActions.editNote(id, note));
   };
 
   const deleteNote = (id) => {
-    dispatch(NoteActions.deleteNote(id));
+    deleteNoteFirebase(id);
+    dispatch(NoteActions.deleteThisNote(id));
     navigation.goBack();
   };
 
